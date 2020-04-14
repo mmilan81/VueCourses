@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="prova.css">
+    
+    <title>Product App</title>
+</head>
+<body>
+    <div class="nav-bar"> </div>
+
+    
+
+    <div id="app">
+        <div class="product"> 
+            <div class="product-image">
+                <a v-href="url"><img v-bind:src="image"></a>
+            </div>
+
+            <div class="product-info">
+                <h1> {{ title }} </h1>
+                <p v-if="inventory > 10">In stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0  ">Almost sold out</p>
+                <p v-else>Out of stock</p>
+                
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+
+                <div v-for="variant in variants" :key="variant.variantId"
+                    class="color-box"
+                    :style="{ backgroundColor: variant.variantColor }"
+                    @mouseover="updateProduct(variant.variantImage)">   
+                </div>
+
+                <div class="add">
+                    <button v-on:click="addToCart" 
+                    class="bottone" 
+                    :disable="!inStock"
+                    :class="{ disableButton: !inStock }">Add to Cart</button> <!-- qui potevamo anche scrivere
+                    dentro a click colo cart += 1 e mettere cart=0 su js ma è più elegante e riutilizzabile
+                    usare una funzione, v-on l'evento avviene quando faccio click mentre con @muoseover l'evento avviene 
+                    quando passo sopra con il mouse -->
+
+                    <div class="cart">
+                        <p>Cart ({{ cart }})</p>
+                    </div>
+                 </div>  
+                </div>
+        </div>
+
+        <div class="link">
+            <a v-bind:href="link" target= "_blank">ecco il link a google</a>
+            <p v-show="visible">questo si vede o no dipende da v-show true o false</p>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="prova.js"></script>
+    
+</body>
+</html>
